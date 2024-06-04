@@ -1,33 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
 import './App.css'
+import { Task } from './types/Task'
+import TaskCard from './components/TaskCard'
+import { Stack, Typography } from '@mui/material';
+import { useStore } from './store';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const tasks = useStore(state => state.tasks);
+  const setTasks = useStore(state => state.setTasks);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/tasks')
+      .then(response => response.json())
+      .then(setTasks);
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        spacing={2}
+        sx={{ marginTop: '2rem' }}
+        width="100vw"
+        height="100vh"
+      >
+        <Typography variant="h1">Tasks</Typography>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          flexWrap={'wrap'}
+          alignItems="center"
+          gap={2}
+        >
+        {tasks.map((task: Task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+        </Stack>
+      </Stack>
     </>
   )
 }
