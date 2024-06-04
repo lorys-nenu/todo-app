@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 import { Task } from './types/Task'
 import TaskCard from './components/TaskCard'
 import { Icon, IconButton, Stack, Tab, Tabs, Typography } from '@mui/material';
@@ -36,7 +35,7 @@ function App() {
         <IconButton onClick={() => setAddTodoModalOpen(true)}>
           <Icon>add</Icon>
         </IconButton>
-        <Tabs value={status} onChange={(_, value) => setStatus(value)} centered>
+        <Tabs value={status} onChange={(_, value) => setStatus(value)} variant='fullWidth'>
           <Tab label="All" value={null} />
           <Tab label="todo" value="todo" />
           <Tab label="In Progress" value="in progress" />
