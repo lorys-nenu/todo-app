@@ -24,8 +24,9 @@ app.get('/', (req: Request, res: Response) => {
  */
 app.get('/tasks', async (req: Request, res: Response) => {
   try {
+    const status = req.query.status as string;
     const tasks = await db.getTasks();
-    res.send(tasks);
+    res.send(tasks.filter(task => status ? task.status === status : true));
   } catch (err) {
     res.status(500).send({ error: 'Failed to read tasks' });
   }
