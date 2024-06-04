@@ -10,7 +10,7 @@ const TaskCard = ({ task } : Props) => {
   const updateTaskStatus = useStore((state) => state.updateTaskStatus);
 
   const handleStatusChange = (status: Task["status"]) => {
-    fetch(`http://localhost:3000/tasks/${task.id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

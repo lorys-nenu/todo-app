@@ -10,7 +10,7 @@ function App() {
   const setTasks = useStore(state => state.setTasks);
 
   useEffect(() => {
-    fetch('http://localhost:3000/tasks')
+    fetch(`${import.meta.env.VITE_API_URL}/tasks`)
       .then(response => response.json())
       .then(setTasks);
   }, []);

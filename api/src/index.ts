@@ -1,11 +1,13 @@
 import * as db from './db';
 import * as bodyParser from 'body-parser';
+import { config } from 'dotenv';
+config();
 import { Request, Response } from "express";
 
 import cors from 'cors';
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.API_PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
