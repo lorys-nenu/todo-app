@@ -5,6 +5,9 @@ type Store = {
   tasks: Task[];
   setTasks: (tasks: Task[]) => void;
   updateTaskStatus: (id: string, status: Task["status"]) => void;
+  shouldRefresh: boolean;
+  refresh: () => void;
+  doneRefresh: () => void;
 };
 
 export const useStore = create<Store>((set) => ({
@@ -15,4 +18,7 @@ export const useStore = create<Store>((set) => ({
       task.id === id ? { ...task, status } : task
     ),
   })),
+  shouldRefresh: false,
+  refresh: () => set({ shouldRefresh: true }),
+  doneRefresh: () => set({ shouldRefresh: false }),
 }));
